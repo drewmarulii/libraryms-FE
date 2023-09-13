@@ -1,0 +1,25 @@
+<div class="container flex align-items-center justify-content-center align-item-center flex-column"
+    style="height: 100vh;">
+    <div class="surface-card p-4 shadow-2 border-noround w-full lg:w-4">
+        <div class="flex align-items-center justify-content-center align-item-center flex-column">
+            <img src="../../../assets/logo.png" alt="Logo Jobroad" width="36">
+        </div>
+
+        <div class="mt-4">
+            <form [formGroup]="userLoginReqDto" (ngSubmit)="onLogin()">
+                <div class="p-fluid grid">
+                    <div class="field col-12 mb-0">
+                        <input id="email" formControlName="userEmail" type="email" pInputText
+                            class="w-full border-noround p-inputtext-sm" placeholder="Email">
+                    </div>
+                    <div class="field col-12">
+                        <input id="password" formControlName="userPassword" type="password" pInputText
+                            class="w-full border-noround  p-inputtext-sm" placeholder="Password">
+                    </div>
+                </div>
+                <app-button [loading]="loading" (clickChange)="checkForm(userLoginReqDto)" type="submit"
+                    classBtn="w-full border-noround" routerLink="/dashboard" label="Log in"></app-button>
+            </form>
+        </div>
+    </div>
+</div>
