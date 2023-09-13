@@ -2,8 +2,8 @@
     <div class="d-flex justify-content-between mb-3">
         <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
             iconBtn="pi pi-angle-left" label="Go Back"></app-button>
-        <app-button type="submit" classBtn="w-full border-noround" routerLink="/dashboard" iconBtn="pi pi-plus"
-            label="CREATE USER"></app-button>
+        <app-button type="submit" classBtn="w-full border-noround" iconBtn="pi pi-plus" label="CREATE USER"
+            data-toggle="modal" data-target="#exampleModalCenter"></app-button>
     </div>
     <h1>Users</h1>
 
@@ -20,7 +20,7 @@
                     </th>
                     <th style="min-width:0.2rem">
                         <div class="flex align-items-center">
-                            
+
                         </div>
                     </th>
                     <th style="min-width:10rem">
@@ -57,9 +57,62 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="7">No benefits found.</td>
+                    <td colspan="7">No Users Found.</td>
                 </tr>
             </ng-template>
         </p-table>
+    </div>
+</div>
+
+<!-- CREATE USER MODAL -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Create User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container p-10">
+                        <div class="form-group">
+                            <div class="rounded-lg text-center p-3">
+                                <img src="//placehold.it/140?text=IMAGE" class="img-fluid" id="preview" />
+                            </div>
+                            <label for="picture">Picture <span class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile">
+                                    <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon">Choose image</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullname">Fullname <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="fullname">
+                        </div>
+                        <div class="form-group">
+                            <label for="useremail">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="useremail">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputState">Role <span class="text-danger">*</span></label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose Role</option>
+                                <option>Admin</option>
+                                <option>Librarian</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
     imports : [
@@ -27,7 +28,8 @@ import { TableModule } from 'primeng/table';
         OverlayPanelModule,
         AvatarModule,
         MenuModule,
-        TableModule
+        TableModule,
+        FileUploadModule
     ],
     exports : [
         InputTextModule,
@@ -42,7 +44,8 @@ import { TableModule } from 'primeng/table';
         OverlayPanelModule,
         AvatarModule,
         MenuModule,
-        TableModule
+        TableModule,
+        FileUploadModule
     ]
 })
 export class SharedModuleComponent {

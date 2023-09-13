@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MessageService } from "primeng/api";
 
 interface CompanyProfile {
     name: String;
@@ -8,13 +9,23 @@ interface CompanyProfile {
     thisYearGrowth: String;
     lastYearGrowth: String;
 }
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
 @Component({
     selector : '',
     templateUrl : './users-list.component.html',
-    styleUrls : ['./users-list.component.css']
+    styleUrls : ['./users-list.component.css'],
+    providers: [MessageService]
 })
 export class UserListComponent implements OnInit {
     companyProfiles: CompanyProfile[] = [];
+    uploadedFiles: any[] = [];
+
+    constructor(
+        private messageService : MessageService
+    ) { }
   
     ngOnInit() {
         this.companyProfiles = [
@@ -59,5 +70,13 @@ export class UserListComponent implements OnInit {
                 lastYearGrowth: "12%",
             }
         ];
+    }
+
+    onUpload(event:UploadEvent) {
+        for(let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+
+        this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
 }
