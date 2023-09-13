@@ -26,7 +26,7 @@ const routes: Routes = [
     {
         component : BaseComponent,
         path : 'users',
-        // loadChildren: () => import('./pages/users/user.module').then(u => UserModule)
+        loadChildren: () => import('./pages/users/users.module').then(u => UserModule)
     }
 ]
 

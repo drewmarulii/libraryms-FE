@@ -11,6 +11,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     imports : [
@@ -25,7 +26,8 @@ import { MenuModule } from 'primeng/menu';
         MenubarModule,
         OverlayPanelModule,
         AvatarModule,
-        MenuModule
+        MenuModule,
+        TableModule
     ],
     exports : [
         InputTextModule,
@@ -39,7 +41,8 @@ import { MenuModule } from 'primeng/menu';
         MenubarModule,
         OverlayPanelModule,
         AvatarModule,
-        MenuModule
+        MenuModule,
+        TableModule
     ]
 })
 export class SharedModuleComponent {

@@ -1,1 +1,65 @@
-<h1>Hello</h1>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
+            iconBtn="pi pi-angle-left" label="Go Back"></app-button>
+        <app-button type="submit" classBtn="w-full border-noround" routerLink="/dashboard" iconBtn="pi pi-plus"
+            label="CREATE USER"></app-button>
+    </div>
+    <h1>Users</h1>
+
+    <div class="card border-noround mt-4">
+        <p-table [value]="companyProfiles" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5, 10, 25, 50]" styleClass="p-datatable-sm">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        No
+                    </th>
+                    <th style="min-width:0.2rem">
+                        <div class="flex align-items-center">
+                            
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Fullname
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Email
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Role
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-u let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <!-- http://localhost:8080/files/{{ u.fileId }} -->
+                            <img src="../../../../assets/logo.png" alt="Profile Picture"
+                                style="border-radius: 100%; width: 3rem; height: 3rem;" class="img-thumbnail">
+                        </div>
+                    </td>
+                    <td>{{u.name}}</td>
+                    <td>{{u.sector}}</td>
+                    <td>{{u.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No benefits found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
