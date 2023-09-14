@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-3">
         <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
-            iconBtn="pi pi-angle-left" label="Go Back"></app-button>
+            iconBtn="pi pi-angle-left" label="GO BACK"></app-button>
         <div class="flex">
             <app-button (click)="showDialogMemberM(dialogCSV)" type="submit"
                 classBtn="w-full border-noround p-button-success" iconBtn="pi pi-upload" label="UPLOAD"
@@ -75,7 +75,7 @@
 <div class="flex justify-content-center">
     <p-dialog header="Create Member" [(visible)]="dialogSingleMember" #dialogCSV [modal]="true" [draggable]="false"
         [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '30vw' }" [closable]="false">
-        <pre>{{ singleMemberInsertReqDto.value | json }}</pre>
+        <!-- <pre>{{ singleMemberInsertReqDto.value | json }}</pre> -->
         <form [formGroup]="singleMemberInsertReqDto" (ngSubmit)="insertSingleMemberConf()">
             <div class="p-fluid grid">
                 <div class="field col-12 mb-0">

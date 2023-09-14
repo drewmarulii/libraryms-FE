@@ -29,6 +29,7 @@ export class UserListComponent implements OnInit {
     dialogUserInsert! : boolean
     companyProfiles: CompanyProfile[] = [];
     uploadedFiles: any[] = [];
+    dialogInsertUserConf! : boolean
     
     userInsertReqDto = this.fb.group({
         userFullname : ['', [Validators.required]],
@@ -112,11 +113,19 @@ export class UserListComponent implements OnInit {
         this.dialogUserInsert = true
     }
 
-    insertUser() {
+    createUserConf() {
 
     }
 
     closeDialogCreateUser() {
+        this.dialogInsertUserConf = true
+    }
+
+    closeDialogCreateUserConf() {
+
+    }
+
+    createUser() {
 
     }
 }
