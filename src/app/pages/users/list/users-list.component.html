@@ -3,7 +3,7 @@
         <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
             iconBtn="pi pi-angle-left" label="Go Back"></app-button>
         <app-button type="submit" classBtn="w-full border-noround" iconBtn="pi pi-plus" label="CREATE USER"
-            data-toggle="modal" data-target="#exampleModalCenter"></app-button>
+            (click)="showDialogInsertUser()"></app-button>
     </div>
     <h1>Users</h1>
 
@@ -86,7 +86,8 @@
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile">
-                                    <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon">Choose image</label>
+                                    <label class="custom-file-label" for="inputGroupFile"
+                                        aria-describedby="inputGroupFileAddon">Choose image</label>
                                 </div>
                             </div>
                         </div>
@@ -115,4 +116,61 @@
             </form>
         </div>
     </div>
+</div>
+
+<!-- CREATE USER MODAL PRIMENG -->
+<div class="flex justify-content-center">
+    <p-dialog header="Create User" [(visible)]="dialogUserInsert" #dialogCSV [modal]="true" [draggable]="false"
+        [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '30vw' }" [maximizable]="true">
+        <form [formGroup]="userInsertReqDto" (ngSubmit)="insertUser()">
+            <div class="p-fluid grid">
+                <div class="field col-12 mb-0">
+                    <div class="grid">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="rounded-lg text-center p-3">
+                                    <img src="//placehold.it/140?text=IMAGE" class="img-fluid" id="preview" />
+                                </div>
+                                <label for="picture">Picture <span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile">
+                                    <label class="custom-file-label" for="inputGroupFile"
+                                        aria-describedby="inputGroupFileAddon">Choose image</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="fullname">Fullname <span class="text-danger">*</span></label>
+                            <input id="fullname" type="text" pInputText class="w-full p-inputtext"
+                                formControlName="userFullname">
+                        </div>
+                        <div class="col">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input id="email" type="email" pInputText class="w-full p-inputtext"
+                                formControlName="userEmail">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="role">Role <span class="text-danger">*</span></label>
+                            <p-dropdown [options]="role" optionValue="value" optionLabel="name"
+                                placeholder="Choose Role" id="role" formControlName="roleId"></p-dropdown>
+                        </div>
+                        <div class="col">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input id="password" type="password" pInputText class="w-full p-inputtext"
+                                formControlName="userPassword">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-end mt-2">
+                <app-button (click)="closeDialogCreateUser()" type="submit"
+                    classBtn="w-full border-noround p-button-secondary" class="mr-2" label="CANCEL"></app-button>
+                <app-button type="submit" classBtn="w-full border-noround" label="SUBMIT"></app-button>
+            </div>
+        </form>
+    </p-dialog>
 </div>

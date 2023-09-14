@@ -1,13 +1,18 @@
 import { Component, OnInit } from "@angular/core";
+import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
 
+interface Role {
+    value : string 
+    name : string
+}
 interface CompanyProfile {
-    name: String;
-    sector: String;
-    thisYearSales: String;
-    lastYearSales: String;
-    thisYearGrowth: String;
-    lastYearGrowth: String;
+    name: String
+    sector: String
+    thisYearSales: String
+    lastYearSales: String
+    thisYearGrowth: String
+    lastYearGrowth: String
 }
 interface UploadEvent {
     originalEvent: Event;
@@ -20,10 +25,21 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class UserListComponent implements OnInit {
+    role! : Role[]
+    dialogUserInsert! : boolean
     companyProfiles: CompanyProfile[] = [];
     uploadedFiles: any[] = [];
-
+    
+    userInsertReqDto = this.fb.group({
+        userFullname : ['', [Validators.required]],
+        userEmail : ['', [Validators.required]],
+        userPassword : ['', [Validators.required]],
+        roleId : ['', [Validators.required]],
+        fileName : ['', [Validators.required]],
+        fileExtension : ['', [Validators.required]]
+    })
     constructor(
+        private fb : NonNullableFormBuilder,
         private messageService : MessageService
     ) { }
   
@@ -70,6 +86,18 @@ export class UserListComponent implements OnInit {
                 lastYearGrowth: "12%",
             }
         ];
+
+        this.role = [
+            {
+                'value' : 'Admin',
+                'name' : 'Admin'
+            }, 
+            {
+                'value' : 'Librarian',
+                'name' : 'Librarian'
+            }
+        ]
+
     }
 
     onUpload(event:UploadEvent) {
@@ -78,5 +106,17 @@ export class UserListComponent implements OnInit {
         }
 
         this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+
+    showDialogInsertUser() {
+        this.dialogUserInsert = true
+    }
+
+    insertUser() {
+
+    }
+
+    closeDialogCreateUser() {
+
     }
 }

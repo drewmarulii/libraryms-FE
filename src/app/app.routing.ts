@@ -9,6 +9,7 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { BaseComponent } from "./components/base/base.component";
 import { BaseModule } from "./components/base/base.module";
 import { UserModule } from "./pages/users/users.module";
+import { MemberModule } from "./pages/members/members.module";
 
 const routes: Routes = [
     {
@@ -27,6 +28,11 @@ const routes: Routes = [
         component : BaseComponent,
         path : 'users',
         loadChildren: () => import('./pages/users/users.module').then(u => UserModule)
+    },
+    {
+        component : BaseComponent,
+        path : 'members',
+        loadChildren: () => import('./pages/members/members.module').then(m => MemberModule)
     }
 ]
 

@@ -13,6 +13,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
     imports : [
@@ -29,7 +32,10 @@ import { FileUploadModule } from 'primeng/fileupload';
         AvatarModule,
         MenuModule,
         TableModule,
-        FileUploadModule
+        FileUploadModule,
+        DialogModule,
+        DropdownModule,
+        InputTextareaModule
     ],
     exports : [
         InputTextModule,
@@ -45,7 +51,10 @@ import { FileUploadModule } from 'primeng/fileupload';
         AvatarModule,
         MenuModule,
         TableModule,
-        FileUploadModule
+        FileUploadModule,
+        DialogModule,
+        DropdownModule,
+        InputTextareaModule
     ]
 })
 export class SharedModuleComponent {

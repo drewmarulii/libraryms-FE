@@ -1,0 +1,273 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
+            iconBtn="pi pi-angle-left" label="Go Back"></app-button>
+        <div class="flex">
+            <app-button (click)="showDialogMemberM(dialogCSV)" type="submit"
+                classBtn="w-full border-noround p-button-success" iconBtn="pi pi-upload" label="UPLOAD"
+                class="mr-2"></app-button>
+            <app-button (click)="showDialogMemberS()" type="submit" classBtn="w-full border-noround"
+                iconBtn="pi pi-plus" label="CREATE" iconBtn="pi pi-plus"></app-button>
+        </div>
+    </div>
+    <h1>Members</h1>
+
+    <div class="card border-noround mt-4">
+        <p-table [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5, 10, 25, 50]" styleClass="p-datatable-sm">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        No
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            ID
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Fullname
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Email
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Gender
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Addresss
+                        </div>
+                    </th>
+                    <th style="min-width:10rem">
+                        <div class="flex align-items-center">
+                            Phone
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-u let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>{{u.name}}</td>
+                    <td>{{u.sector}}</td>
+                    <td>{{u.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" class="text-center">No Members Found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<!-- CREATE MEMBER SINGLE MODAL PRIMENG -->
+<div class="flex justify-content-center">
+    <p-dialog header="Create Member" [(visible)]="dialogSingleMember" #dialogCSV [modal]="true" [draggable]="false"
+        [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '30vw' }" [closable]="false">
+        <pre>{{ singleMemberInsertReqDto.value | json }}</pre>
+        <form [formGroup]="singleMemberInsertReqDto" (ngSubmit)="insertSingleMemberConf()">
+            <div class="p-fluid grid">
+                <div class="field col-12 mb-0">
+                    <div class="grid">
+                        <div class="col">
+                            <label for="fullname">Fullname <span class="text-danger">*</span></label>
+                            <input id="fullname" type="text" pInputText class="w-full p-inputtext"
+                                formControlName="memberFullname">
+                        </div>
+                        <div class="col">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input id="email" type="email" pInputText class="w-full p-inputtext"
+                                formControlName="memberEmail">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="gender">Gender <span class="text-danger">*</span></label>
+                            <p-dropdown [options]="gender" optionValue="value" optionLabel="name"
+                                placeholder="Choose Gender" formControlName="memberGender"></p-dropdown>
+                        </div>
+                        <div class="col">
+                            <label for="phone">Phone <span class="text-danger">*</span></label>
+                            <input id="phone" type="text" pInputText class="w-full p-inputtext"
+                                formControlName="memberPhone">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="address">Address <span class="text-danger">*</span></label>
+                            <textarea rows="2" id="address" cols="30" formControlName="memberAddress"
+                                pInputTextarea></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-end mt-2">
+                <app-button (click)="closeDialogSingleMember()" typeBtn="button"
+                    classBtn="w-full border-noround p-button-secondary" class="mr-2" label="CANCEL"></app-button>
+                <app-button typeBtn="submit" classBtn="w-full border-noround" label="SUBMIT"></app-button>
+            </div>
+        </form>
+    </p-dialog>
+</div>
+
+<!-- CREATE MEMBER MULTIPLE MODAL PRIMENG -->
+<div class="flex justify-content-center">
+    <p-dialog header="Upload Data Member" [(visible)]="dialogMultipleMember" #dialogCSV [modal]="true"
+        [draggable]="false" [maximizable]="true" [closable]="false">
+        <form [formGroup]="multipleMembersInsertReqDto" (ngSubmit)="insertMultiMembersConf()">
+            <div class="form-group">
+                <label for="picture">File <span class="text-danger">*</span></label>
+                <input class="form-control" formControlName="file" type="file" id="picture" accept=".csv"
+                    (change)="fileUploadCSV($event)" style="width: 50%;">
+                <small class="text-danger mt-0">* Only CSV File</small>
+            </div>
+            <div class="card border-noround mt-4">
+                <p-table [value]="rawValue" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5, 10, 25, 50]" styleClass="p-datatable-sm">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">
+
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Fullname
+                                </div>
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Email
+                                </div>
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Gender
+                                </div>
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Addresss
+                                </div>
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Phone
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-u let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{ i+1 }}</td>
+                            <td>{{u.memberFullname}}</td>
+                            <td>{{u.memberEmail}}</td>
+                            <td>{{u.memberGender}}</td>
+                            <td>{{u.memberAddress}}</td>
+                            <td>{{u.memberPhone}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7" class="text-center">Please Add Data Member File</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="flex justify-content-end mt-4">
+                <app-button (click)="closeDialogUploadCSVConf()" typeBtn="button"
+                    classBtn="w-full border-noround p-button-secondary" class="mr-2" label="CANCEL"></app-button>
+                <app-button typeBtn="submit" classBtn="w-full border-noround" label="SUBMIT"></app-button>
+            </div>
+        </form>
+    </p-dialog>
+</div>
+
+<!-- CREATE MEMBER MULTIPLE MODAL PRIMENG CONFIRMATION -->
+<div class="flex justify-content-center">
+    <p-dialog [(visible)]="dialogInsertMMConf" [modal]="true" [draggable]="false" [style]="{ width: '20vw' }"
+        [closable]="false">
+        <div class="justify-content-center mt-4 text-center">
+            <h1>
+                <i class="pi pi-question-circle mb-3" style="font-size: 8rem;"></i>
+            </h1>
+            <p>This action will start the insertion process of multiple members. Are you sure?</p>
+        </div>
+        <div class="flex justify-content-center mt-4">
+            <app-button (click)="closeDialogMultiMembersConf()" typeBtn="button"
+                classBtn="w-full border-noround p-button-secondary" class="mr-2" label="REVIEW"></app-button>
+            <app-button typeBtn="submit" (click)="insertMultiMembers()" classBtn="w-full border-noround"
+                label="CONFIRM"></app-button>
+        </div>
+    </p-dialog>
+</div>
+
+<!-- CREATE MEMBER MULTIPLE MODAL PRIMENG CONFIRMATION (CANCELATION) -->
+<div class="flex justify-content-center">
+    <p-dialog [(visible)]="dialogCancelInsertMMConf" [modal]="true" [draggable]="false" [style]="{ width: '20vw' }"
+        [closable]="false">
+        <div class="justify-content-center mt-4 text-center">
+            <h1>
+                <i class="pi pi-question-circle mb-3" style="font-size: 8rem;"></i>
+            </h1>
+            <p>Are you sure you want to cancel? This action will cancel the insertion process of multiple members</p>
+        </div>
+        <div class="flex justify-content-center mt-4">
+            <app-button type="submit" (click)="cancelInsetMDialog(2)"
+                classBtn="w-full border-noround p-button-secondary" label="CONFIRM" class="mr-2"></app-button>
+            <app-button (click)="cancelInsetMDialog(1)" type="submit" classBtn="w-full border-noround"
+                label="CANCEL"></app-button>
+        </div>
+    </p-dialog>
+</div>
+
+<!-- CREATE MEMBER SINGLE MODAL PRIMENG CONFIRMATION (CANCELATION) -->
+<div class="flex justify-content-center">
+    <p-dialog [(visible)]="dialogCancelInsertSMConf" [modal]="true" [draggable]="false" [style]="{ width: '20vw' }"
+        [closable]="false">
+        <div class="justify-content-center mt-4 text-center">
+            <h1>
+                <i class="pi pi-question-circle mb-3" style="font-size: 8rem;"></i>
+            </h1>
+            <p>Are you sure you want to cancel? This action will cancel the insertion process of a new member</p>
+        </div>
+        <div class="flex justify-content-center mt-4">
+            <app-button type="submit" (click)="cancelInsetSMDialog(2)"
+                classBtn="w-full border-noround p-button-secondary" label="CONFIRM" class="mr-2"></app-button>
+            <app-button (click)="cancelInsetSMDialog(1)" type="submit" classBtn="w-full border-noround"
+                label="CANCEL"></app-button>
+        </div>
+    </p-dialog>
+</div>
+
+<!-- CREATE MEMBER SINGLE MODAL PRIMENG CONFIRMATION -->
+<div class="flex justify-content-center">
+    <p-dialog [(visible)]="dialogInsertSMConf" [modal]="true" [draggable]="false" [style]="{ width: '20vw' }"
+        [closable]="false">
+        <div class="justify-content-center mt-4 text-center">
+            <h1>
+                <i class="pi pi-question-circle mb-3" style="font-size: 8rem;"></i>
+            </h1>
+            <p>This action will insert a member. Are you sure?</p>
+        </div>
+        <div class="flex justify-content-center mt-4">
+            <app-button (click)="closeDialogSingleMembersConf()" typeBtn="button"
+                classBtn="w-full border-noround p-button-secondary" class="mr-2" label="REVIEW"></app-button>
+            <app-button typeBtn="submit" (click)="insertSingleMember()" classBtn="w-full border-noround"
+                label="CONFIRM"></app-button>
+        </div>
+    </p-dialog>
+</div>
