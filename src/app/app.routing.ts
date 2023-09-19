@@ -10,50 +10,68 @@ import { BaseComponent } from "./components/base/base.component";
 import { BaseModule } from "./components/base/base.module";
 import { UserModule } from "./pages/users/users.module";
 import { MemberModule } from "./pages/members/members.module";
+import { NotFoundComponent } from "./components/not-found/not-found.component";
+import { CategoryModule } from "./pages/categories/categories.module";
 
 const routes: Routes = [
     {
-        path : 'login',
-        component : LoginComponent
+        path: 'login',
+        component: LoginComponent
     },
     {
-        component : BaseComponent,
-        path : 'dashboard',
-        children : [{
-            path : '',
-            component : DashboardComponent
+        component: BaseComponent,
+        path: 'dashboard',
+        children: [{
+            path: '',
+            component: DashboardComponent
         }]
     },
     {
-        component : BaseComponent,
-        path : 'users',
+        component: BaseComponent,
+        path: 'users',
         loadChildren: () => import('./pages/users/users.module').then(u => UserModule)
     },
     {
-        component : BaseComponent,
-        path : 'members',
+        component: BaseComponent,
+        path: 'members',
         loadChildren: () => import('./pages/members/members.module').then(m => MemberModule)
+    },
+    {
+        component: BaseComponent,
+        path: 'categories',
+        loadChildren: () => import('./pages/categories/categories.module').then(c => CategoryModule)
+    },
+    {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: "full"
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ]
 
 @NgModule({
-    declarations : [
+    declarations: [
         LoginComponent,
-        DashboardComponent
+        DashboardComponent,
+        NotFoundComponent
     ],
-    imports : [
+    imports: [
         RouterModule.forRoot(routes),
         SharedModuleComponent,
         ButtonComponent,
         CommonModule,
-        ReactiveFormsModule    
+        ReactiveFormsModule
     ],
-    exports : [
+    exports: [
         RouterModule,
         LoginComponent,
         BaseModule,
         DashboardComponent,
-        ButtonComponent
+        ButtonComponent,
+        NotFoundComponent
     ]
 })
 export class AppRouting {

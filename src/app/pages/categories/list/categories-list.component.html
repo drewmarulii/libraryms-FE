@@ -1,0 +1,158 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <app-button type="submit" classBtn="w-full border-noround p-button-secondary" routerLink="/dashboard"
+            iconBtn="pi pi-angle-left" label="GO BACK"></app-button>
+        <div class="flex">
+            <app-button (click)="showDialogCategoryM(dialogCategory)" type="submit"
+                classBtn="w-full border-noround p-button-success" iconBtn="pi pi-upload" label="UPLOAD"
+                class="mr-2"></app-button>
+            <app-button (click)="showDialogCategoryS()" type="submit" classBtn="w-full border-noround"
+                iconBtn="pi pi-plus" label="CREATE" iconBtn="pi pi-plus"></app-button>
+        </div>
+    </div>
+    <h1>Categories</h1>
+
+    <div class="card border-noround mt-4">
+        <p-table [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5, 10, 25, 50]" styleClass="p-datatable-sm">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        No
+                    </th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Code
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Name
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Book Total
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-u let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>{{u.name}}</td>
+                    <td>{{u.sector}}</td>
+                    <td>{{u.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" class="text-center">No Categories Found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<!-- CREATE CATEGORY SINGLE MODAL PRIMENG -->
+<div class="flex justify-content-center">
+    <p-dialog header="Create Member" [(visible)]="dialogSingleCategory" [modal]="true" [draggable]="false"
+        [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '30vw' }" [closable]="false">
+        <!-- <pre>{{ singleMemberInsertReqDto.value | json }}</pre> -->
+        <!-- <form [formGroup]="singleMemberInsertReqDto" (ngSubmit)="insertSingleMemberConf()">
+            <div class="p-fluid grid">
+                <div class="field col-12 mb-0">
+                    <div class="grid">
+                        <div class="col">
+                            <label for="fullname">Fullname <span class="text-danger">*</span></label>
+                            <input id="fullname" type="text" pInputText class="w-full p-inputtext"
+                                formControlName="memberFullname">
+                        </div>
+                        <div class="col">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input id="email" type="email" pInputText class="w-full p-inputtext"
+                                formControlName="memberEmail">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="gender">Gender <span class="text-danger">*</span></label>
+                            <p-dropdown [options]="gender" optionValue="value" optionLabel="name"
+                                placeholder="Choose Gender" formControlName="memberGender"></p-dropdown>
+                        </div>
+                        <div class="col">
+                            <label for="phone">Phone <span class="text-danger">*</span></label>
+                            <input id="phone" type="text" pInputText class="w-full p-inputtext"
+                                formControlName="memberPhone">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="address">Address <span class="text-danger">*</span></label>
+                            <textarea rows="2" id="address" cols="30" formControlName="memberAddress"
+                                pInputTextarea></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-end mt-2">
+                <app-button (click)="closeDialogSingleMember()" typeBtn="button"
+                    classBtn="w-full border-noround p-button-secondary" class="mr-2" label="CANCEL"></app-button>
+                <app-button typeBtn="submit" classBtn="w-full border-noround" label="SUBMIT"></app-button>
+            </div>
+        </form> -->
+    </p-dialog>
+</div>
+
+<!-- CREATE CATEGORY MULTIPLE MODAL PRIMENG -->
+<div class="flex justify-content-center">
+    <p-dialog header="Upload Data Member" [(visible)]="dialogMultipleCategory" #dialogCategory [modal]="true"
+        [draggable]="false" [maximizable]="true" [closable]="false">
+        <form [formGroup]="multipleCategoryInsertReqDto" (ngSubmit)="insertMultiCategoriesConf()">
+            <div class="form-group">
+                <label for="picture">File <span class="text-danger">*</span></label>
+                <input class="form-control" formControlName="file" type="file" id="picture" accept=".csv"
+                    (change)="fileUploadCSV($event)" style="width: 50%;">
+                <small class="text-danger mt-0">* Only CSV File</small>
+            </div>
+            <div class="card border-noround mt-4">
+                <p-table [value]="rawValue" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5, 10, 25, 50]" styleClass="p-datatable-sm">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">
+
+                            </th>
+                            <th style="min-width:10rem">
+                                <div class="flex align-items-center">
+                                    Category Name
+                                </div>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-c let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{ i+1 }}</td>
+                            <td>{{c.categoryName}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7" class="text-center">Please Add Data Member File</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="flex justify-content-end mt-4">
+                <app-button (click)="closeDialogUploadCSVConf()" typeBtn="button"
+                    classBtn="w-full border-noround p-button-secondary" class="mr-2" label="CANCEL"></app-button>
+                <app-button typeBtn="submit" classBtn="w-full border-noround" label="SUBMIT"></app-button>
+            </div>
+        </form>
+    </p-dialog>
+</div>
